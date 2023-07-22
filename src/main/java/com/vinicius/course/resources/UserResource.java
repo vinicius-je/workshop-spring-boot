@@ -1,18 +1,30 @@
 package com.vinicius.course.resources;
 
 import com.vinicius.course.entities.User;
+import com.vinicius.course.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
+    @Autowired
+    private UserService userService;
 
     @GetMapping
-    public ResponseEntity<User> findAll() {
-        User u = new User(1L, "vinicius", "vinicius@email.com", "90900909", "123");
-        return ResponseEntity.ok().body(u);
+    public ResponseEntity<List<User>> findAll() {
+        List<User> users = userService.findAll();
+        return ResponseEntity.ok().body(users);
+    }
+
+    @GetMapping(value = "/{id}")
+    public User findById(@PathVariable Long id){
+        return userService.findById(id);
     }
 }
