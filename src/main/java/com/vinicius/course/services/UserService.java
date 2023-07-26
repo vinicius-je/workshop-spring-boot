@@ -4,6 +4,7 @@ import com.vinicius.course.entities.User;
 import com.vinicius.course.repositories.UserRepository;
 import com.vinicius.course.services.exceptions.DatabaseException;
 import com.vinicius.course.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -41,9 +42,13 @@ public class UserService {
     }
 
     public User update(Long id, User obj){
-        User entity = userRepository.getReferenceById(id);
-        updateData(entity, obj);
-        return userRepository.save(entity);
+        try {
+            User entity = userRepository.getReferenceById(id);
+            updateData(entity, obj);
+            return userRepository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User obj) {
