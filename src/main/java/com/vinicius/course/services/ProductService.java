@@ -51,7 +51,7 @@ public class ProductService {
         }
     }
 
-    public void updateData(Product entity, Product obj){
+    private void updateData(Product entity, Product obj){
         entity.setName(obj.getName());
         entity.setDescription(obj.getDescription());
         entity.setPrice(obj.getPrice());
