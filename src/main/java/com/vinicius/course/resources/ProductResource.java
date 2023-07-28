@@ -41,7 +41,7 @@ public class ProductResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product obj){
         Product product = productService.update(id, obj);
         return ResponseEntity.ok().body(product);
