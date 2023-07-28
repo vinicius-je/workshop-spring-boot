@@ -56,5 +56,7 @@ public class ProductService {
         entity.setDescription(obj.getDescription());
         entity.setPrice(obj.getPrice());
         entity.setImgUrl(obj.getImgUrl());
+        entity.getCategories().clear();
+        entity.getCategories().addAll(obj.getCategories());
     }
 }
