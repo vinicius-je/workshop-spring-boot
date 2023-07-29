@@ -1,6 +1,7 @@
 package com.vinicius.course.resources;
 
 import com.vinicius.course.entities.Order;
+import com.vinicius.course.services.OrderItemService;
 import com.vinicius.course.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public class OrderResource {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private OrderItemService orderItemService;
+
     @GetMapping
     public ResponseEntity<List<Order>> findAll() {
         List<Order> orders = orderService.findAll();
@@ -30,6 +34,9 @@ public class OrderResource {
     @PostMapping
     public ResponseEntity<Order> insert(@RequestBody Order obj){
         Order order = orderService.insert(obj);
+
+        orderItemService.insert(obj, obj.getItems());
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(order.getId()).toUri();
         return ResponseEntity.created(uri).body(order);

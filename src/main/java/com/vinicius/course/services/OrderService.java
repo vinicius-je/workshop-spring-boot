@@ -27,6 +27,9 @@ public class OrderService {
     }
 
     public Order insert(Order obj){
+        if(obj.getPayment() != null){
+            obj.getPayment().setOrder(obj);
+        }
         return orderRepository.save(obj);
     }
 
