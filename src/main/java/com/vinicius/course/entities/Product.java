@@ -2,6 +2,9 @@ package com.vinicius.course.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -14,8 +17,12 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Name is mandatory")
     private String name;
+    @NotBlank(message = "Description is mandatory")
     private String description;
+    @DecimalMax("10000.00")
+    @DecimalMin("0.00")
     private Double price;
     private String imgUrl;
 
