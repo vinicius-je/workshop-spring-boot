@@ -64,4 +64,12 @@ public class OrderService {
         }
     }
 
+    public List<Order> findOrdersById(Long userId){
+        try {
+            return orderRepository.findOrdersByUser(userId);
+        } catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(userId);
+        }
+    }
+
 }

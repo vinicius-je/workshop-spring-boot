@@ -31,6 +31,12 @@ public class OrderResource {
         return orderService.findById(id);
     }
 
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<List<Order>> findOrdersById(@PathVariable Long id){
+        List<Order> list = orderService.findOrdersById(id);
+        return ResponseEntity.ok().body(list);
+    }
+
     @PostMapping
     public ResponseEntity<Order> insert(@RequestBody Order obj){
         Order order = orderService.insert(obj);
