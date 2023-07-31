@@ -1,7 +1,9 @@
 package com.vinicius.course.services;
 
 import com.vinicius.course.entities.Order;
+import com.vinicius.course.entities.enums.OrderStatus;
 import com.vinicius.course.repositories.OrderRepository;
+import com.vinicius.course.services.exceptions.InvalidOperationException;
 import com.vinicius.course.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,7 @@ public class OrderService {
     }
 
     public Order insert(Order obj){
-        if(obj.getPayment() != null){
-            obj.getPayment().setOrder(obj);
-        }
+        checkOrderStatus(obj,"Not allowed to set Order Status to PAID with no payment");
         return orderRepository.save(obj);
     }
 
@@ -46,10 +46,21 @@ public class OrderService {
     public Order update(Long id, Order obj){
         try {
             Order entity = orderRepository.getReferenceById(id);
+            checkOrderStatus(obj,"Not allowed to set Order Status to PAID with no payment");
             entity.setOrderStatus(obj.getOrderStatus());
             return orderRepository.save(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
+        }
+    }
+
+    public void checkOrderStatus(Order obj, String msg){
+        if(obj.getOrderStatus().equals(OrderStatus.PAID) && !(obj.getPayment() != null)){
+            throw new InvalidOperationException(msg);
+        }
+
+        if(obj.getPayment() != null){
+            obj.getPayment().setOrder(obj);
         }
     }
 
