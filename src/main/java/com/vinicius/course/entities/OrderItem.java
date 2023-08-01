@@ -5,6 +5,9 @@ import com.vinicius.course.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,7 +17,10 @@ import java.util.Objects;
 public class OrderItem implements Serializable {
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
+    @Min(1)
+    @Max(10)
     private Integer quantity;
+    @DecimalMin("0.00")
     private Double price;
 
     public OrderItem() {
