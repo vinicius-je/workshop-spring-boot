@@ -17,8 +17,33 @@
   ![image](https://github.com/vinicius-je/workshop-spring-boot/assets/67986109/96aea3a5-d4b0-475c-8af1-6d2777ce9070)
 </div>
 
+## Next Steps
+- [x] Validation
+- [x] Documentation
+- [ ] Encrypt password
+- [ ] Authentication
+
+
+## Business rule
+- In order class will only be changed to PAID if there is payment
+- Only admin user can:
+  - create new categories
+  - create new products
+  - change order status
+
 ## Tech
-- Java
+- Java 17
 - SpringBoot
+- JPA
 - H2 (test database)
+- SQL
+- Bean Validation
+- Swagger
 - intelliJ IDEA
+
+## How to run the project
+- Clone this repository in your machine and run the project
+
+  API works on [localhost:8080](http://localhost:8080)
+
+  Swagger can be visualized in [localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
