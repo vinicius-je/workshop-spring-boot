@@ -2,6 +2,7 @@ package com.vinicius.course.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,9 +16,13 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Name is mandatory")
     private String name;
+    @NotBlank(message = "Email is mandatory")
     private String email;
+    @NotBlank(message = "Phone is mandatory")
     private String phone;
+    @NotBlank(message = "Password is mandatory")
     private String password;
 
     @JsonIgnore
