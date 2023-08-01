@@ -3,6 +3,9 @@ package com.vinicius.course.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vinicius.course.entities.enums.OrderStatus;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -17,11 +20,12 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Instant is mandatory")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
-
     private Integer orderStatus;
 
+    @NotNull(message = "Client is mandatory")
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
