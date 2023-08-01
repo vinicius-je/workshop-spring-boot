@@ -2,9 +2,7 @@ package com.vinicius.course.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -26,6 +24,7 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
+    @NotNull(message = "Product must hava at less one category")
     @ManyToMany
     @JoinTable(name = "tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"),
