@@ -20,7 +20,7 @@ public class Product implements Serializable {
     @NotBlank(message = "Description is mandatory")
     private String description;
     @DecimalMax("10000.00")
-    @DecimalMin("0.00")
+    @DecimalMin("1.00")
     private Double price;
     private String imgUrl;
 
