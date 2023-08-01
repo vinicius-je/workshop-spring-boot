@@ -20,7 +20,7 @@ public class OrderItem implements Serializable {
     @Min(1)
     @Max(10)
     private Integer quantity;
-    @DecimalMin("0.00")
+    @DecimalMin("1.00")
     private Double price;
 
     public OrderItem() {
