@@ -48,17 +48,15 @@ public class OrderResource {
         return ResponseEntity.created(uri).body(order);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id, @RequestBody Order obj){
-        Order order = orderService.update(id, obj);
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping(value = "/{id}")
     public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order obj){
         Order order = orderService.update(id, obj);
         return ResponseEntity.ok().body(order);
     }
 
-
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        orderService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
