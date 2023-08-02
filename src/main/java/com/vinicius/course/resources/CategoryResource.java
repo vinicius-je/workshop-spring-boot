@@ -4,11 +4,10 @@ import com.vinicius.course.entities.Category;
 import com.vinicius.course.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -26,5 +25,26 @@ public class CategoryResource {
     @GetMapping(value = "/{id}")
     public Category findById(@PathVariable Long id){
         return categoryService.findById(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Category> insert(@RequestBody Category obj){
+        Category category = categoryService.insert(obj);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(category.getId()).toUri();
+        return ResponseEntity.created(uri).body(category);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category obj){
+        Category category = categoryService.update(id, obj);
+        return ResponseEntity.ok().body(category);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        categoryService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
