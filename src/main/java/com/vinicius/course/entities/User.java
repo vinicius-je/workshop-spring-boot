@@ -2,6 +2,7 @@ package com.vinicius.course.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
@@ -18,6 +19,8 @@ public class User implements Serializable {
     private Long id;
     @NotBlank(message = "Name is mandatory")
     private String name;
+
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
     @NotBlank(message = "Email is mandatory")
     private String email;
     @NotBlank(message = "Phone is mandatory")

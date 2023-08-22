@@ -5,16 +5,25 @@ import com.vinicius.course.entities.enums.OrderStatus;
 import com.vinicius.course.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Instant;
 import java.util.Arrays;
 
 
 @Configuration
+//@EnableWebSecurity
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Autowired
     private UserRepository userRepository; // injeção de dependência
     @Autowired
