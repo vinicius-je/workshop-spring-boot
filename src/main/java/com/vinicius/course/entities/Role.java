@@ -1,35 +1,46 @@
 package com.vinicius.course.entities;
 
 import jakarta.persistence.*;
-
-import java.io.Serializable;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "tb_roles")
-public class Role implements Serializable {
+@Table(name = "tb_role")
+public class Role implements GrantedAuthority {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
+    private Integer roleId;
 
-    public Role(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    private String authority;
+
+    public Role(){
+        super();
     }
 
-    public Long getId() {
-        return id;
+    public Role(String authority){
+        this.authority = authority;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Role(Integer roleId, String authority){
+        this.roleId = roleId;
+        this.authority = authority;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String getAuthority() {
+        return this.authority;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAuthority(String authority){
+        this.authority = authority;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 }

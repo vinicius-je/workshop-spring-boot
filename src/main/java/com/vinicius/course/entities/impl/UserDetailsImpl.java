@@ -14,13 +14,18 @@ import java.util.Set;
 public class UserDetailsImpl implements UserDetails {
 
     private User user;
+
+    public UserDetailsImpl(User user) {
+        this.user = user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<Role> roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
         for(Role role: roles){
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         }
         return authorities;
     }
