@@ -157,7 +157,7 @@ public class TestConfig implements CommandLineRunner {
                     auth.requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll();
                     auth.requestMatchers("/users").hasRole("ADMIN");
                     auth.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll();
-                    auth.anyRequest().permitAll();
+                    auth.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -3,6 +3,7 @@ package com.vinicius.course.resources;
 import com.vinicius.course.entities.User;
 import com.vinicius.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
