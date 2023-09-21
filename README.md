@@ -20,8 +20,8 @@
 ## Next Steps
 - [x] Validation
 - [x] Documentation
-- [ ] Encrypt password
-- [ ] Authentication
+- [x] Encrypt password
+- [x] Authentication
 
 
 ## Business rule
@@ -36,7 +36,7 @@
 - SpringBoot
 - JPA
 - H2 (test database)
-- SQL
+- MySQL
 - Bean Validation
 - Swagger
 - intelliJ IDEA
