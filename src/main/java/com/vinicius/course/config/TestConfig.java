@@ -141,7 +141,6 @@ public class TestConfig implements CommandLineRunner {
 
     }
 
-
     @Bean
     public AuthenticationManager authManager(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
@@ -154,9 +153,9 @@ public class TestConfig implements CommandLineRunner {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources", "/v3/api-docs/**", "/proxy/**").permitAll();
                     auth.requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll();
                     auth.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll();
-                    auth.requestMatchers(new AntPathRequestMatcher("/swagger-ui.html")).permitAll();
                     auth.anyRequest().authenticated();
                     //auth.requestMatchers("/users").hasRole("ADMIN");
                 })
