@@ -2,9 +2,9 @@ package com.vinicius.course.resources;
 
 import com.vinicius.course.entities.Product;
 import com.vinicius.course.services.ProductService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -28,6 +28,7 @@ public class ProductResource {
         return productService.findById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Product> insert(@RequestBody Product obj){
         Product product = productService.insert(obj);
@@ -36,12 +37,14 @@ public class ProductResource {
         return ResponseEntity.created(uri).body(product);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         productService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product obj){
         Product product = productService.update(id, obj);

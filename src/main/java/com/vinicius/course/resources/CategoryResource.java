@@ -4,6 +4,7 @@ import com.vinicius.course.entities.Category;
 import com.vinicius.course.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,6 +28,7 @@ public class CategoryResource {
         return categoryService.findById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Category> insert(@RequestBody Category obj){
         Category category = categoryService.insert(obj);
@@ -36,12 +38,14 @@ public class CategoryResource {
         return ResponseEntity.created(uri).body(category);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category obj){
         Category category = categoryService.update(id, obj);
         return ResponseEntity.ok().body(category);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         categoryService.delete(id);

@@ -155,9 +155,10 @@ public class TestConfig implements CommandLineRunner {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll();
-                    auth.requestMatchers("/users").hasRole("ADMIN");
                     auth.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll();
+                    auth.requestMatchers(new AntPathRequestMatcher("/swagger-ui.html")).permitAll();
                     auth.anyRequest().authenticated();
+                    //auth.requestMatchers("/users").hasRole("ADMIN");
                 })
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

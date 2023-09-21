@@ -5,6 +5,7 @@ import com.vinicius.course.services.OrderItemService;
 import com.vinicius.course.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -48,6 +49,7 @@ public class OrderResource {
         return ResponseEntity.created(uri).body(order);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order obj){
         Order order = orderService.update(id, obj);

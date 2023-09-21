@@ -3,8 +3,8 @@ package com.vinicius.course.resources;
 import com.vinicius.course.entities.User;
 import com.vinicius.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,6 +29,7 @@ public class UserResource {
         return ResponseEntity.ok().body(obj);
     }
 
+    @Secured("ADMIN")
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User obj){
         User user = userService.insert(obj);
